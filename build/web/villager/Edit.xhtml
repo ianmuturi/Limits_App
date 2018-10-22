@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditVillagerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditVillagerLabel_villagerid}" for="villagerid" />
+                    <h:inputText readonly="true" id="villagerid" value="#{villagerController.selected.villagerid}" title="#{bundle.EditVillagerTitle_villagerid}" required="true" requiredMessage="#{bundle.EditVillagerRequiredMessage_villagerid}"/>
+                    <h:outputLabel value="#{bundle.EditVillagerLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{villagerController.selected.name}" title="#{bundle.EditVillagerTitle_name}" required="true" requiredMessage="#{bundle.EditVillagerRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditVillagerLabel_landregno}" for="landregno" />
+                    <h:inputText id="landregno" value="#{villagerController.selected.landregno}" title="#{bundle.EditVillagerTitle_landregno}" />
+                    <h:outputLabel value="#{bundle.EditVillagerLabel_address}" for="address" />
+                    <h:inputText id="address" value="#{villagerController.selected.address}" title="#{bundle.EditVillagerTitle_address}" />
+                    <h:outputLabel value="#{bundle.EditVillagerLabel_village}" for="village" />
+                    <h:selectOneMenu value="#{villagerController.selected.village}">
+                        <f:selectItems value="#{villagerController.values}" 
+                                       var="item"
+                                       itemLabel="#{item.name}"
+                                       itemValue="#{item.name}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditVillagerLabel_createddate}" for="createddate" />
+                    <h:inputText readonly="true"  id="createddate" value="#{villagerController.selected.createddate}" title="#{bundle.EditVillagerTitle_createddate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <h:commandLink action="#{villagerController.update}" value="#{bundle.EditVillagerSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditVillagerViewLink}"/>
+                <br />
+                <h:commandLink action="#{villagerController.prepareList}" value="#{bundle.EditVillagerShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditVillagerIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

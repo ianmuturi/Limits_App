@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateVillageTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel style="display: none" value="#{bundle.CreateVillageLabel_villageid}" for="villageid" />
+                    <h:inputText style="display: none" id="villageid" value="#{villageController.selected.villageid}" title="#{bundle.CreateVillageTitle_villageid}" required="false" requiredMessage="#{bundle.CreateVillageRequiredMessage_villageid}"/>
+                    <h:outputLabel value="#{bundle.CreateVillageLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{villageController.selected.name}" title="#{bundle.CreateVillageTitle_name}" required="true" requiredMessage="#{bundle.CreateVillageRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateVillageLabel_location}" for="location" />
+                    <h:selectOneMenu value="#{villageController.selected.location}">
+                        <f:selectItems value="#{villageController.values}" 
+                                       var="item"
+                                       itemLabel="#{item.name}"
+                                       itemValue="#{item.name}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel style="display: none" value="#{bundle.CreateVillageLabel_createddate}" for="createddate" />
+                    <h:inputText style="display: none" id="createddate" value="#{villageController.selected.createddate}" title="#{bundle.CreateVillageTitle_createddate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateVillageLabel_noofresidents}" for="noofresidents" />
+                    <h:inputText id="noofresidents" value="#{villageController.selected.noofresidents}" title="#{bundle.CreateVillageTitle_noofresidents}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{villageController.create}" value="#{bundle.CreateVillageSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{villageController.prepareList}" value="#{bundle.CreateVillageShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateVillageIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateLocationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel style="display: none" value="#{bundle.CreateLocationLabel_locationid}" for="locationid" />
+                    <h:inputText id="locationid" style="display: none" value="#{locationController.selected.locationid}" title="#{bundle.CreateLocationTitle_locationid}" required="false" requiredMessage="#{bundle.CreateLocationRequiredMessage_locationid}"/>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{locationController.selected.name}" title="#{bundle.CreateLocationTitle_name}" required="true" requiredMessage="#{bundle.CreateLocationRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateLocationLabel_chief}" for="chief" />
+                    <h:selectOneMenu value="#{locationController.selected.chief}">
+                        <f:selectItems value="#{locationController.values}" 
+                                       var="item"
+                                       itemLabel="#{item.name}"
+                                       itemValue="#{item.name}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel style="display: none" value="#{bundle.CreateLocationLabel_createddate}" for="createddate" />
+                    <h:inputText style="display: none" id="createddate" value="#{locationController.selected.createddate}" title="#{bundle.CreateLocationTitle_createddate}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{locationController.create}" value="#{bundle.CreateLocationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{locationController.prepareList}" value="#{bundle.CreateLocationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateLocationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
